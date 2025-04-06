@@ -178,11 +178,48 @@ section{
 
 .heart img:hover {
   content: url("images/heart.svg");
-  width: 20px;
-  height: 20px;
 }
 
 .heart img{
   width: 20px;
   height: 20px;
+}
+
+.infinity {
+  padding: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+.infinity-track {
+  display: inline-flex;
+  animation: scroll-left 20s linear infinite;
+}
+
+.infinity img {
+  width: 200px;
+  height: 200px;
+  margin: 0 10px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+footer{
+  background-color: rgb(112, 112, 112);
+  color: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-top: 50px;
 }
