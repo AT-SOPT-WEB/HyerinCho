@@ -1,0 +1,19 @@
+h1{
+  background-color: pink;
+}
+
+li:first-child{
+  color: red;
+}
+
+li:nth-child(2){
+  color: orange;
+}
+
+li:nth-child(3){
+  color: rgb(208, 208, 67);
+}
+
+li:nth-child(4){
+  color: rgb(80, 150, 80);
+}
