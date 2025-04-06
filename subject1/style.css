@@ -137,11 +137,13 @@ section{
 }
 
 .image_wrapper{
-  width: 100%;    
-  max-width: 950px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 180px);
   gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
 }
 
 .image img{
@@ -170,8 +172,8 @@ section{
 }
 
 .image_wrapper > div:hover{
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
   transition: all 0.3s ease;
   cursor: pointer;
 }
