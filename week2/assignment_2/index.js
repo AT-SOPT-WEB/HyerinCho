@@ -13,6 +13,10 @@ const checkBtn = document.querySelector('.checked-btn');
 const tableHeader = table.querySelector('.todo-header').cloneNode(true);
 const deleteBtn = document.querySelector('.todo-delete');
 const allCheckBox = document.querySelector('.all-check');
+const showAllBtn = document.querySelector('.show-all');
+const showCompletedBtn = document.querySelector('.show-completed');
+const showIncompleteBtn = document.querySelector('.show-incomplete');
+const showPriority = document.querySelector('select[name=show-priority]');
 
 let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
@@ -28,16 +32,45 @@ const showAllTodo = (todo) => {
   table.appendChild(tr);
 }
 
+//완료된 Todo 출력
+const showCompletedTodo = (todo) => {
+  if(todo.completed){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input class="todo-check" type="checkbox"></td>
+      <td>${todo.priority}</td>
+      <td>${todo.completed ? "✅" : "❌"}</td>
+      <td class="todo-title">${todo.title}</td>
+    `;
+    table.appendChild(tr);
+  }
+}
+
+//미완료 Todo 출력
+const showIncompleteTodo = (todo) => {
+  if(!todo.completed){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input class="todo-check" type="checkbox"></td>
+      <td>${todo.priority}</td>
+      <td>${todo.completed ? "✅" : "❌"}</td>
+      <td class="todo-title">${todo.title}</td>
+    `;
+    table.appendChild(tr);
+  }
+}
+
 todoData.forEach((todo)=>{
   showAllTodo(todo)
 })
 
 //테이블 다시 그리기
-const renderTable = () => {
+const renderTable = (showTodo) => {
   table.innerHTML = '';
   table.appendChild(tableHeader.cloneNode(true));
-  todoData.forEach(todo => showAllTodo(todo));
+  todoData.forEach(todo => showTodo(todo));
 }
+
 
 // Todo 추가
 addTodoBtn.addEventListener('click', () => {
@@ -129,3 +162,35 @@ table.addEventListener('change', () => {
 
   allCheckBox.checked = allChecked; 
 });
+
+//전체 Todo 필터링
+showAllBtn.addEventListener('click', () => {
+  renderTable(showAllTodo);
+})
+
+//완료된 Todo 필터링
+showCompletedBtn.addEventListener('click', () => {
+  renderTable(showCompletedTodo);
+})
+
+//중요도 Todo 필터링
+showIncompleteBtn.addEventListener('click', () => {
+  renderTable(showIncompleteTodo);
+})
+
+showPriority.addEventListener('change', () => {
+  const selectedPriority = showPriority.value;
+  const filterPriority = (todoData) => {
+    if(todoData.priority == selectedPriority){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="todo-check" type="checkbox"></td>
+        <td>${todoData.priority}</td>
+        <td>${todoData.completed ? "✅" : "❌"}</td>
+        <td class="todo-title">${todoData.title}</td>
+      `;
+      table.appendChild(tr);
+    }
+  }
+  renderTable(filterPriority);
+})
