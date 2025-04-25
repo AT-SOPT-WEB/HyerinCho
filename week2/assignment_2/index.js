@@ -1,7 +1,7 @@
 import { todos } from "./data.js";
 
 const data = JSON.parse(localStorage.getItem('todoData')).length;
-if (!localStorage.getItem('todoData') || data == 0) {
+if (!localStorage.getItem('todoData') || data === 0) {
   localStorage.setItem('todoData', JSON.stringify(todos));
 }
 
@@ -9,8 +9,10 @@ const table =  document.querySelector('.todo-table');
 const input = document.querySelector('.todo-value');
 const addTodoBtn = document.querySelector('.todo-add-btn');
 const priority = document.querySelector('select[name=choose-priority]');
+const checkBtn = document.querySelector('.checked-btn');
 const tableHeader = table.querySelector('.todo-header').cloneNode(true);
 const deleteBtn = document.querySelector('.todo-delete');
+const allCheckBox = document.querySelector('.all-check');
 
 let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
@@ -75,3 +77,55 @@ deleteBtn.addEventListener('click', () => {
   renderTable();
 })
 
+// 완료 시키기
+checkBtn.addEventListener('click', () => {
+  const checkedTodo = document.querySelectorAll('.todo-check:checked');
+
+  let hasCompleted = false;
+
+  checkedTodo.forEach((check) => {
+    const tr = check.closest('tr');
+    const title = tr.querySelector('.todo-title').textContent;
+    const todo = todoData.find((todo) => todo.title === title);
+
+    if (todo && todo.completed) {
+      hasCompleted = true;
+    }
+  });
+
+  if (hasCompleted) {
+    alert('이미 완료된 할 일이 포함되어 있습니다.');
+    return;
+  }
+
+  checkedTodo.forEach((check) => {
+    const tr = check.closest('tr');
+    const title = tr.querySelector('.todo-title').textContent;
+    const todo = todoData.find((todo) => todo.title === title);
+
+    if (todo) {
+      todo.completed = true;
+    }
+  });
+
+  localStorage.setItem('todoData', JSON.stringify(todoData));
+  renderTable();
+});
+
+
+
+//모두 check로 변경
+allCheckBox.addEventListener('change', () => {
+  const todoChecks = document.querySelectorAll('.todo-check');
+  todoChecks.forEach((check) => {
+    check.checked = allCheckBox.checked;
+  });
+});
+
+//하나라도 체크 안될시 all-check 반영 해제
+table.addEventListener('change', () => {
+  const todoChecks = document.querySelectorAll('.todo-check');
+  const allChecked = Array.from(todoChecks).every(check => check.checked);
+
+  allCheckBox.checked = allChecked; 
+});
