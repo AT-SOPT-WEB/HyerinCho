@@ -18,6 +18,10 @@ const showCompletedBtn = document.querySelector('.show-completed');
 const showIncompleteBtn = document.querySelector('.show-incomplete');
 const showPriority = document.querySelector('select[name=show-priority]');
 
+const modal = document.querySelector('.modal');
+const modalMessage = document.querySelector('.modal-message');
+const modalCloseBtn = document.querySelector('.modal-close-btn');
+
 let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
 //전체 Todo 출력
@@ -107,7 +111,7 @@ deleteBtn.addEventListener('click', () => {
   })
 
   localStorage.setItem('todoData', JSON.stringify(todoData));
-  renderTable();
+  renderTable(showAllTodo);
 })
 
 // 완료 시키기
@@ -127,7 +131,7 @@ checkBtn.addEventListener('click', () => {
   });
 
   if (hasCompleted) {
-    alert('이미 완료된 할 일이 포함되어 있습니다.');
+    showModal('이미 완료된 할 일이 포함되어 있습니다.');
     return;
   }
 
@@ -142,10 +146,8 @@ checkBtn.addEventListener('click', () => {
   });
 
   localStorage.setItem('todoData', JSON.stringify(todoData));
-  renderTable();
+  renderTable(showAllTodo);
 });
-
-
 
 //모두 check로 변경
 allCheckBox.addEventListener('change', () => {
@@ -194,3 +196,13 @@ showPriority.addEventListener('change', () => {
   }
   renderTable(filterPriority);
 })
+
+const showModal = (message) => {
+  modalMessage.textContent = message;
+  modal.classList.remove('hidden');
+}
+
+// 모달 닫기
+modalCloseBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
