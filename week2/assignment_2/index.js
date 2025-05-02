@@ -1,7 +1,7 @@
 import { todos } from "./data.js";
 
-const data = JSON.parse(localStorage.getItem('todoData')).length;
-if (!localStorage.getItem('todoData') || data === 0) {
+const data = localStorage.getItem('todoData');
+if ( !data || JSON.parse(data).length === 0) {
   localStorage.setItem('todoData', JSON.stringify(todos));
 }
 
@@ -24,8 +24,7 @@ const modalCloseBtn = document.querySelector('.modal-close-btn');
 
 let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
-//전체 Todo 출력
-const showAllTodo = (todo) => {
+const createRow = (todo) => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td><input class="todo-check" type="checkbox"></td>
@@ -36,31 +35,22 @@ const showAllTodo = (todo) => {
   table.appendChild(tr);
 }
 
+//전체 Todo 출력
+const showAllTodo = (todo) => {
+  createRow(todo);
+}
+
 //완료된 Todo 출력
 const showCompletedTodo = (todo) => {
   if(todo.completed){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input class="todo-check" type="checkbox"></td>
-      <td>${todo.priority}</td>
-      <td>${todo.completed ? "✅" : "❌"}</td>
-      <td class="todo-title">${todo.title}</td>
-    `;
-    table.appendChild(tr);
+    createRow(todo);
   }
 }
 
 //미완료 Todo 출력
 const showIncompleteTodo = (todo) => {
   if(!todo.completed){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input class="todo-check" type="checkbox"></td>
-      <td>${todo.priority}</td>
-      <td>${todo.completed ? "✅" : "❌"}</td>
-      <td class="todo-title">${todo.title}</td>
-    `;
-    table.appendChild(tr);
+    createRow(todo);
   }
 }
 
@@ -85,9 +75,9 @@ addTodoBtn.addEventListener('click', () => {
     alert('할 일과 중요도 모두 입력해주세요 !')
     return
   };
-
+  
   const newTodo = {
-    id: todoData.length + 1,
+    id: Date.now(),
     title: inputValue,
     completed: false,
     priority: priorityValue
@@ -184,14 +174,7 @@ showPriority.addEventListener('change', () => {
   const selectedPriority = showPriority.value;
   const filterPriority = (todoData) => {
     if(todoData.priority == selectedPriority){
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input class="todo-check" type="checkbox"></td>
-        <td>${todoData.priority}</td>
-        <td>${todoData.completed ? "✅" : "❌"}</td>
-        <td class="todo-title">${todoData.title}</td>
-      `;
-      table.appendChild(tr);
+      createRow(todoData);
     }
   }
   renderTable(filterPriority);
