@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>TodoList</title>
+</head>
+<body>
+  <main>
+    <div class="btn_wrapper">
+      <button class="show-all">전체</button>
+      <button class="show-completed">완료됨</button>
+      <button class="show-incomplete">미완료</button>
+      <select name="show-priority">
+        <option value="" selected disabled hidden>중요도</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+    </div>
+    <div class="todo-box">
+      <form class="input-box">
+        <input class="todo-value" placeholder="할 일을 입력하세요 !">
+        <select name="choose-priority">
+          <option value="" selected disabled hidden>중요도 선택</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <button class="todo-add-btn" type="submit">추가</button>
+      </form>
+      <div class="todo-actions-box">
+        <button class="todo-delete" type="button">삭제</button>
+        <button class="checked-btn" type="button">완료</button>
+        
+      </div>
+      <table class="todo-table">
+          <tr class="todo-header">
+            <th><input class="all-check" type="checkbox"></th>
+            <th>중요도</th>
+            <th>완료됨</th>
+            <th>할 일</th>
+          </tr>
+      </table>
+    </div>
+    <div class="modal hidden">
+      <div class="modal-content">
+        <p class="modal-message">이미 완료된 할 일이 포함되어 있습니다.</p>
+        <button class="modal-close-btn">확인</button>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="index.js"></script>
+  </body>
+</html>
