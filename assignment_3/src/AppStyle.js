@@ -4,7 +4,7 @@ export const mainStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: 80vh;
 `;
 
 export default {
