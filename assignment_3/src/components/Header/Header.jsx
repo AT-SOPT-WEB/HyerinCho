@@ -1,10 +1,8 @@
-import {useState} from 'react'
 import { useTheme } from '@emotion/react';
 import style from './HeaderStyle.js'
 
-const Header = () => {
-  const [clickValue, setClickValue] = useState('githubSearch');
-  
+const Header = ({clickValue, setClickValue}) => {
+
   //isActive 값 넘기기 위해
   const theme = useTheme();
 
