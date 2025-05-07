@@ -32,11 +32,11 @@ const GithubSearch = () => {
   }
 
   //엔터키 눌렀을 때 제출
-  const submitValue = (e) => {
-    if(e.key === "Enter"){
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
       getUserInfo(inputValue);
-      
+
       if(searchHistory.includes(inputValue)) {
         setInputValue('');
         return;
@@ -45,7 +45,7 @@ const GithubSearch = () => {
       //최근검색어 최대 3개 구현
       let updatedHistory = [...searchHistory];
       if (updatedHistory.length === 3) {
-        updatedHistory.shift();
+        updatedHistory = updatedHistory.slice(1);
       }
 
       updatedHistory.push(inputValue);
@@ -55,7 +55,6 @@ const GithubSearch = () => {
       setSearchHistory(updatedHistory);
 
       setInputValue('');
-    }
   }
 
   //최근 검색어 삭제
@@ -76,14 +75,15 @@ const GithubSearch = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder='Github 아이디를 입력해주세요'
-        css={style.inputStyle}
-        value={inputValue}
-        onChange={handleSearchChange}
-        onKeyDown={submitValue}
-        />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder='Github 아이디를 입력해주세요'
+          css={style.inputStyle}
+          value={inputValue}
+          onChange={handleSearchChange}
+          />
+      </form>
 
         {searchHistory.length > 0 && 
         <>
