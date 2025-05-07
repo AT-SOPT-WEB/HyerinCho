@@ -1,11 +1,12 @@
-import Card from '../Card/Card.jsx';
 import style from './GithubSearchStyle'
 import {useState, useEffect} from 'react';
+import Result from './Result.jsx';
 
 const GithubSearch = () => {
   const [inputValue, setInputValue] = useState('');
   const [userInfo, setUserInfo] = useState({ status: 'idle', data: null });
   const [searchHistory, setSearchHistory] = useState([]); //최근 검색어 저장 배열
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("userList")) || [];
@@ -22,6 +23,7 @@ const GithubSearch = () => {
       setUserInfo({ status: 'resolved', data });
     } catch {
       setUserInfo({ status: 'rejected', data: null });
+      setErrorMessage('결과를 찾을 수 없습니다. 다시 시도해주세요');
     }
   };
 
@@ -103,18 +105,12 @@ const GithubSearch = () => {
         </>
         }
 
-        {userInfo.data && 
-        <Card
-        deleteCard = {deleteCard}
-        avatar_url={userInfo.data.avatar_url}
-        name = {userInfo.data.name}
-        login = {userInfo.data.login}
-        bio = {userInfo.data.bio}
-        html_url = {userInfo.data.html_url}
-        followers = {userInfo.data.followers}
-        following = {userInfo.data.following}
+        <Result
+          status={userInfo.status}
+          data={userInfo.data}
+          errorMessage={errorMessage}
+          onDelete={deleteCard}
         />
-        }
     </div>
   );
 };

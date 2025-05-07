@@ -35,6 +35,33 @@ export const researchName = css`
   cursor: pointer;
 `;
 
+export const errorMessage = css`
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 600;
+`;
+
+export const loading = css`
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 0;
+`;
+
+export const spinner = (theme) => css`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 0.6rem solid rgba(0, 0, 0, 0.1);
+  animation: spin 1s infinite linear;
+  border-top-color: ${theme.color.blue300};
+
+  @keyframes spin {
+    to{
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 export default{
   inputStyle,
   recentSearchText,
@@ -42,4 +69,7 @@ export default{
   recentSearch,
   deleteButton,
   researchName,
+  errorMessage,
+  loading,
+  spinner,
 }
