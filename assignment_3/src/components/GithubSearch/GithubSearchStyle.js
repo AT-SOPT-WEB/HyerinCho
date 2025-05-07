@@ -31,10 +31,15 @@ export const deleteButton = css`
   outline: none;
 `;
 
+export const researchName = css`
+  cursor: pointer;
+`;
+
 export default{
   inputStyle,
   recentSearchText,
   recentSearchWrapper,
   recentSearch,
   deleteButton,
+  researchName,
 }

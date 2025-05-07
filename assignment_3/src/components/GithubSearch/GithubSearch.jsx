@@ -56,6 +56,11 @@ const GithubSearch = () => {
     setUserInfo({ status: 'idle', data: null });
   }
 
+  //재검색
+  const handleResearch = (user) => {
+    getUserInfo(user)
+  }
+
   return (
     <div>
       <input
@@ -73,7 +78,10 @@ const GithubSearch = () => {
         <div css={style.recentSearchWrapper}>
           {searchHistory.map((user, index)=> (
             <div key={index} css={style.recentSearch}>
-              <p>{user}</p>
+              <p 
+              onClick={() => handleResearch(user)}
+              css={style.researchName}
+              >{user}</p>
               <button 
               css={style.deleteButton}
               onClick={() => handleDelete(user)}
