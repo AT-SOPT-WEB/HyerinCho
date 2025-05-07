@@ -33,13 +33,18 @@ const GithubSearch = () => {
   const submitValue = (e) => {
     if(e.key === "Enter"){
       getUserInfo(inputValue);
-      
-      //로컬스토리지에 저장
-      const stored = JSON.parse(localStorage.getItem('userList')) || [];
-      const updated = [...stored, inputValue];
 
-      localStorage.setItem("userList", JSON.stringify(updated));
-      setSearchHistory(updated);
+      //최근검색어 최대 3개 구현
+      let updatedHistory = [...searchHistory];
+      if (updatedHistory.length === 3) {
+        updatedHistory.shift();
+      }
+      
+      updatedHistory.push(inputValue);
+
+      //로컬스토리지에 저장
+      localStorage.setItem("userList", JSON.stringify(updatedHistory));
+      setSearchHistory(updatedHistory);
 
       setInputValue('');
     }
