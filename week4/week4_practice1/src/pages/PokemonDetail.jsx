@@ -13,7 +13,6 @@ const PokemonDetail = () => {
           `https://pokeapi.co/api/v2/pokemon/${name}`
         );
         setPokemon(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error('포켓몬 리스트를 불러오는 데 실패했습니다.', error);
       }

@@ -12,7 +12,6 @@ function Home(){
         const response = await axios.get(
           'https://pokeapi.co/api/v2/pokemon?limit=40'
         );
-        console.log(response.data.results)
         setPokemonList(response.data.results);
       } catch (error) {
         console.error('포켓몬 리스트를 불러오는 데 실패했습니다.', error);
