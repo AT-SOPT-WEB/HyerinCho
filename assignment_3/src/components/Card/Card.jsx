@@ -1,4 +1,4 @@
-import style from './CardStyle.js';
+import * as style from './CardStyle.js';
 
 const Card = ({avatar_url, name, login, bio, html_url, followers, following, deleteCard}) => {
   return (
@@ -20,7 +20,7 @@ const Card = ({avatar_url, name, login, bio, html_url, followers, following, del
       </a>
       <div css={style.middleWrapper}>
         <a href={html_url}>
-          <h1 css={style.titleStyle}>{name}</h1>
+          <p css={style.titleStyle}>{name}</p>
         </a>
         <div css={style.smallTitleStyle}>
           <p>{login}</p>

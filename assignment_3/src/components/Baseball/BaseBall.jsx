@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import style from './BaseBallStyle.js'
+import * as style from "./BaseBallStyle.js";
 import ResultBox from './ResultBox.jsx';
 
 const Baseball = () => {
@@ -33,9 +33,14 @@ useEffect(() => {
 }, []);
 
 const handleSearchChange = (e) => {
-  const value = e.target.value;
+  const value = e.target.value.trim();    
+
+  if (value.replace(/[^0-9]/g, "") != value){
+    setMessage("숫자만 입력가능해요!")
+  }
+
   setInputValue(value);
-  
+
   //3자리 중복 확인
   if(value.length === 3){
     const unique = new Set(value);
@@ -60,8 +65,7 @@ const handleSearchChange = (e) => {
     const newResults = [...results, resultText];
     setResults(newResults);
     setInputValue('');
-    setMessage(`${strike}스트라이크 ${ball}볼`)
-    console.log(randomValue)
+    setMessage(`${strike}스트라이크 ${ball}볼`);
 
     if (strike === 3) {
       setMessage('🎉 정답입니다! 3초 후 게임이 초기화됩니다.');

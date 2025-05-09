@@ -78,15 +78,3 @@ export const follow = (theme) => css`
   flex-direction: column;
   gap: 0.5rem;
 `;
-
-export default{
-  cardStyle,
-  deleteBoxWrapper,
-  deleteBoxStyle,
-  deleteButton,
-  profileStyle,
-  titleStyle,
-  smallTitleStyle,
-  followWrapper,
-  follow,
-}

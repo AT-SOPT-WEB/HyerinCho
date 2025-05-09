@@ -1,11 +1,10 @@
-import style from './ResultBoxStyle.js'
+import {wrapperStyle} from './ResultBoxStyle.js'
+
 const ResultBox = ({result}) => {
   return (
-    <div>
-      <div css={style.wrapperStyle}>
+      <div css={wrapperStyle}>
         {result}
       </div>
-    </div>
   );
 };
 

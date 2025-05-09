@@ -7,7 +7,3 @@ export const wrapperStyle = (theme) => css`
   border-radius: 0.8rem;
   text-align: center;
 `;
-
-export default{
-  wrapperStyle,
-}

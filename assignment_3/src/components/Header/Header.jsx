@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import style from './HeaderStyle.js'
+import * as style from './HeaderStyle.js'
 
 const Header = ({clickValue, setClickValue}) => {
 

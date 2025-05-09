@@ -61,15 +61,3 @@ export const spinner = (theme) => css`
     }
   }
 `;
-
-export default{
-  inputStyle,
-  recentSearchText,
-  recentSearchWrapper,
-  recentSearch,
-  deleteButton,
-  researchName,
-  errorMessage,
-  loading,
-  spinner,
-}

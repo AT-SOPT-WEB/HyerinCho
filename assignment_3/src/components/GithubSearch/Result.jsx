@@ -1,4 +1,4 @@
-import style from './GithubSearchStyle'
+import * as style from './GithubSearchStyle'
 import Card from '../Card/Card';
 
 const Result = ({ status, data, errorMessage, onDelete }) => {

@@ -21,9 +21,3 @@ export const resultBoxWrapper = css`
   flex-direction: column;
   gap: 1rem;
 `;
-
-export default{
-  inputStyle,
-  errorMessage,
-  resultBoxWrapper,
-}

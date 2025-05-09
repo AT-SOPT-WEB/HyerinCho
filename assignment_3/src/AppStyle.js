@@ -6,7 +6,3 @@ export const mainStyle = css`
   align-items: center;
   min-height: 80vh;
 `;
-
-export default {
-  mainStyle,
-}

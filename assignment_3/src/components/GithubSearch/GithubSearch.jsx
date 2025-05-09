@@ -1,6 +1,7 @@
-import style from './GithubSearchStyle'
+import * as style from './GithubSearchStyle'
 import {useState, useEffect} from 'react';
 import Result from './Result.jsx';
+import SearchHistory from './SearchHistory.jsx';
 
 const GithubSearch = () => {
   const [inputValue, setInputValue] = useState('');
@@ -31,30 +32,33 @@ const GithubSearch = () => {
     setInputValue(e.target.value);
   }
 
+  //로컬스토리지에 저장
+  const saveToLocalStorage = (key, data) => {
+    localStorage.setItem(key, JSON.stringify(data));
+  };
+
+  //검색어 최대 3개 및 중복
+  const updateSearchHistory = (value) => {
+    if(searchHistory.includes(value)) return;
+
+    let updatedHistory = [...searchHistory];
+    if (updatedHistory.length === 3) {
+      updatedHistory = updatedHistory.slice(1);
+    }
+
+    updatedHistory.push(value);
+
+    saveToLocalStorage("userList", updatedHistory);
+    setSearchHistory(updatedHistory);
+  }
+
   //엔터키 눌렀을 때 제출
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      getUserInfo(inputValue);
-
-      if(searchHistory.includes(inputValue)) {
-        setInputValue('');
-        return;
-      };
-
-      //최근검색어 최대 3개 구현
-      let updatedHistory = [...searchHistory];
-      if (updatedHistory.length === 3) {
-        updatedHistory = updatedHistory.slice(1);
-      }
-
-      updatedHistory.push(inputValue);
-      
-      //로컬스토리지에 저장
-      localStorage.setItem("userList", JSON.stringify(updatedHistory));
-      setSearchHistory(updatedHistory);
-
-      setInputValue('');
+    getUserInfo(inputValue);
+    updateSearchHistory(inputValue);
+    setInputValue('');
   }
 
   //최근 검색어 삭제
@@ -87,21 +91,10 @@ const GithubSearch = () => {
 
         {searchHistory.length > 0 && 
         <>
-        <p css={style.recentSearchText}>최근검색어</p>
-        <div css={style.recentSearchWrapper}>
-          {searchHistory.map((user, index)=> (
-            <div key={index} css={style.recentSearch}>
-              <p 
-              onClick={() => handleResearch(user)}
-              css={style.researchName}
-              >{user}</p>
-              <button 
-              css={style.deleteButton}
-              onClick={() => handleDelete(user)}
-              >x</button>
-              </div>
-          ))}  
-        </div>
+        <SearchHistory 
+        searchHistory={searchHistory}
+        handleResearch={handleResearch}
+        handleDelete={handleDelete}/>
         </>
         }
 

@@ -30,9 +30,3 @@ export const buttonStyle = ({theme, isActive}) => css`
     background-color: ${theme.color.blue300};
   }
 `
-export default{
-  headerStyle,
-  titleStyle,
-  buttonWrapperStyle,
-  buttonStyle,
-}
