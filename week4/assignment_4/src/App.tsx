@@ -1,8 +1,10 @@
+import { RouterProvider } from "react-router"
+import Router from "./Router/Router.tsx"
 
 function App() {
 
   return (
-    <div>main</div>
+    <RouterProvider router={Router} />
   )
 }
 
