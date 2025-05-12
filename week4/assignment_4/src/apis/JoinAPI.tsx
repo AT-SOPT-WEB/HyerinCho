@@ -8,7 +8,7 @@ export const JoinAPI = async (id: string, password: string, nickname: string) =>
     });
 
     const data = await response.json();
-    if (data.success) return { success: true};
+    if (data.success) return { success: true, data: data};
     else return { success: false, data: data };
   } catch {
     return {success: false, data: "네트워크 에러"};
