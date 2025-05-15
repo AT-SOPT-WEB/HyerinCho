@@ -68,7 +68,6 @@ const useJoinForm = () => {
 
     const result = await JoinAPI(id, password, nickname);
     if(result.success){
-      console.log(result.data)
       alert(`회원가입에 성공하였습니다.  닉네임: ${result.data.data.nickname}`);
       navigate('/login');
     }else{
